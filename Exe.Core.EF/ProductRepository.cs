@@ -6,9 +6,18 @@ namespace Exe.Core.EF
 {
     public class ProductRepository : IRepository<Product>
     {
-        public bool Add(Product item)
+        public bool Add(Product p)
         {
-            throw new NotImplementedException();
+            using (var _ctx = new ProductContext())
+            {
+                if (p == null)
+                    return false;
+
+                _ctx.Products.Add(p);
+                _ctx.SaveChanges();
+
+                return true;
+            }
         }
     }
 }

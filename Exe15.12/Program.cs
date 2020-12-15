@@ -1,11 +1,18 @@
-﻿using System;
+﻿using Exe.Core;
+using Exe.Help;
+using System;
 
 namespace Exe15._12
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {
+            #region DependencyInjection
+            //var serviceProvider = ConfigDI.ConfigDI();
+            //BusinessLayer layer = serviceProvider.GetService<BusinessLayer>(); 
+            #endregion
+
             // Chiedere il nome di un database server, il nome del database, uno username e la password da linea di comando
             string dbServer = GetData("database server");
             string dbName = GetData("database name");
@@ -20,19 +27,29 @@ namespace Exe15._12
             // Connection Timeout=30; 
             #endregion
 
+
             // Comporre la stringa di connessione del database usando i dati precedenti 
-            string connectionString = ComposeConnectionString(dbServer, dbName, username, password);
+            Config.connectionString = Config.ComposeConnectionString(dbServer, dbName, username, password);
+            
             // Mostrarla a video
-            Console.WriteLine("This is your connection string: " + connectionString);
+            Console.WriteLine("This is your connection string: " + Config.connectionString);
+
+            // Richiesta dati del primo prodotto all'utente e inserimento 
+            Product product = new Product();
+            product.Code = GetData("Product code");
+            product.Name = GetData("Product name");
+            product.Description = GetData("Product description");
+            product.Price = System.Convert.ToInt32(GetData("Product price"));
+
+            // Richiesta dati del secondo prodotto all'utente e inserimento 
+            Product product2 = new Product();
+            product2.Code = GetData("Product code");
+            product2.Name = GetData("Product name");
+            product2.Description = GetData("Product description");
+            product2.Price = System.Convert.ToInt32(GetData("Product price"));
+
         }
 
-        private static string ComposeConnectionString(string dbServer, string dbName, string username, string password)
-        {
-            string connString = $"Server=tcp:{dbServer}.database.windows.net,1433;Initial Catalog={dbName};" +
-                        $"Persist Security Info=False;User ID={username}; Password={password};" +
-                        "MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-            return connString;
-        }
 
         private static string GetData(string message)
         {
