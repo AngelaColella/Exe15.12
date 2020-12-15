@@ -8,15 +8,14 @@ namespace Exe15._12
 {
     public class ConfigDI
     {
-        public static ServiceProvider ConfigDI()
+        // va recuperata la connection string
+        
+        public static ServiceProvider DIConfiguration()
         {
             return new ServiceCollection()
-                .AddTransient<BusinessLayer>()
-               
+                .AddTransient<BusinessLayer>()             
                 .AddTransient<IRepository<Product>, ProductRepository>()
-
                 .BuildServiceProvider();
         }
     }
-}
 }

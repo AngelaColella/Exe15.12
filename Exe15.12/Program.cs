@@ -9,7 +9,7 @@ namespace Exe15._12
         static void Main(string[] args)
         {
             #region DependencyInjection
-            //var serviceProvider = ConfigDI.ConfigDI();
+            //var serviceProvider = ConfigDI.DIConfiguration();
             //BusinessLayer layer = serviceProvider.GetService<BusinessLayer>(); 
             #endregion
 
